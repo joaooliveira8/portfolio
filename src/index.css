@@ -13,9 +13,9 @@
   --ink: #16191d;
   --sub: #555b65;
   --line: #dadee4;
-  --acc: #c94a12;
+  --acc: #2557d6;
   --acc-ink: #ffffff;
-  --hl: #ffd24a;
+  --hl: #c7d7fe;
   --err: #b42318;
   --ok: #1e7b34;
   --merged: #6f42c1;
@@ -35,9 +35,9 @@
     --ink: #eceef1;
     --sub: #a2a9b4;
     --line: #2d3239;
-    --acc: #ff7a45;
-    --acc-ink: #1d0e06;
-    --hl: rgb(255 122 69 / 0.42);
+    --acc: #7aa2ff;
+    --acc-ink: #0b1838;
+    --hl: rgb(122 162 255 / 0.34);
     --err: #ff8a80;
     --ok: #7bd88f;
     --merged: #a371f7;
@@ -53,9 +53,9 @@
   --ink: #eceef1;
   --sub: #a2a9b4;
   --line: #2d3239;
-  --acc: #ff7a45;
-  --acc-ink: #1d0e06;
-  --hl: rgb(255 122 69 / 0.42);
+  --acc: #7aa2ff;
+  --acc-ink: #0b1838;
+  --hl: rgb(122 162 255 / 0.34);
   --err: #ff8a80;
   --ok: #7bd88f;
   --merged: #a371f7;

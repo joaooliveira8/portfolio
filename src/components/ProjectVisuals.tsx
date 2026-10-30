@@ -51,8 +51,8 @@ function TicketsVisual() {
 
 // Miniaturas com cores fixas: mostram os dois temas lado a lado, independente do tema atual.
 const palettes = {
-  claro: { bg: '#e9ecf0', tile: '#ffffff', ink: '#16191d', sub: '#c9ced6', acc: '#c94a12' },
-  escuro: { bg: '#111316', tile: '#1a1d22', ink: '#eceef1', sub: '#3a4048', acc: '#ff7a45' },
+  claro: { bg: '#e9ecf0', tile: '#ffffff', ink: '#16191d', sub: '#c9ced6', acc: '#2557d6' },
+  escuro: { bg: '#111316', tile: '#1a1d22', ink: '#eceef1', sub: '#3a4048', acc: '#7aa2ff' },
 }
 
 function MiniScreen({ name }: { name: keyof typeof palettes }) {

@@ -115,6 +115,19 @@
   h3 {
     text-wrap: balance;
   }
+  /*
+    Texto corrido justificado. A hifenização (lang="pt-BR") evita buracos entre as palavras
+    nas colunas estreitas do celular. Títulos, botões e rótulos continuam alinhados à esquerda.
+  */
+  p,
+  dd,
+  li {
+    text-align: justify;
+    hyphens: auto;
+  }
+  a {
+    hyphens: manual;
+  }
 }
 
 /* Marca-texto atrás das palavras do título. */

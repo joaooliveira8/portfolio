@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="18" fill="#2557D6"/>
-  <text x="32" y="41" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="26" font-weight="800" fill="#FFFFFF">JP</text>
+  <rect width="64" height="64" rx="16" fill="#2557D6"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15,19 29,32 15,45"/>
+    <line x1="35" y1="45" x2="49" y2="45"/>
+  </g>
 </svg>

@@ -13,15 +13,21 @@ export const profile = {
   github: 'https://github.com/joaooliveira8',
   linkedin: 'https://www.linkedin.com/in/jo%C3%A3o-pedro-de-oliveira-8a1684262/',
   resume: `${import.meta.env.BASE_URL}curriculo-joao-pedro-oliveira.pdf`,
+  // Chave do Web3Forms (https://web3forms.com): informe seu e-mail lá e cole aqui a chave que chegar.
+  // Ela é pública por design, pode ficar no código. Vazia, o formulário abre o app de e-mail.
+  contactFormKey: '',
   now: 'Dev Front-end Júnior na DataSmartCom desde jul/2026 e cursando o 5º semestre de Sistemas de Informação na Faculdade Impacta.',
   language: 'Inglês intermediário, com leitura técnica avançada.',
 }
 
-export const stack: { group: string; items: string[] }[] = [
-  { group: 'Front-end', items: ['React', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'RTK Query', 'Zod', 'HTML5', 'CSS'] },
-  { group: 'Back-end e dados', items: ['.NET', 'C#', 'Entity Framework', 'APIs REST', 'SQL', 'PostgreSQL', 'Node.js'] },
-  { group: 'Qualidade', items: ['Casos de teste', 'Requisitos', 'UML', 'JIRA'] },
-  { group: 'Dia a dia', items: ['Git', 'GitHub', 'VS Code', 'Kanban'] },
+// Mostrada como um package.json no início do site.
+export const stack: { key: string; items: string[] }[] = [
+  { key: 'dia-a-dia', items: ['react', 'typescript', 'javascript', 'tailwindcss', 'rtk-query', 'zod', 'html', 'css'] },
+  {
+    key: 'quando-o-problema-pede',
+    items: ['dotnet', 'csharp', 'entity-framework', 'apis-rest', 'sql', 'postgresql', 'nodejs'],
+  },
+  { key: 'processo', items: ['git', 'github', 'jira', 'kanban', 'requisitos', 'casos-de-teste', 'uml'] },
 ]
 
 export type Job = {

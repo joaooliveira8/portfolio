@@ -18,21 +18,47 @@ function validate(values: Record<Field, string>): Errors {
   return errors
 }
 
+// Com a chave do Web3Forms a mensagem é enviada pelo site; sem ela, abre o app de e-mail.
+const canSendDirectly = profile.contactFormKey.trim() !== ''
+
+type Status = 'idle' | 'sending' | 'sent' | 'mailto' | 'error'
+
+async function sendMessage(values: Record<Field, string>) {
+  const res = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      access_key: profile.contactFormKey,
+      subject: `Contato pelo portfólio: ${values.nome.trim()}`,
+      from_name: 'Portfólio',
+      name: values.nome.trim(),
+      email: values.email.trim(),
+      message: values.mensagem.trim(),
+    }),
+  })
+  const json = (await res.json().catch(() => null)) as { success?: boolean } | null
+  if (!res.ok || !json?.success) throw new Error('Envio recusado')
+}
+
 const inputClass =
   'w-full rounded-xl border border-line bg-tile-2 px-3.5 py-3 text-[15px] text-ink placeholder:text-sub/70 transition-colors aria-[invalid=true]:border-err'
 
 export default function ContactForm() {
   const [errors, setErrors] = useState<Errors>({})
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<Status>('idle')
   const refs = {
     nome: useRef<HTMLInputElement>(null),
     email: useRef<HTMLInputElement>(null),
     mensagem: useRef<HTMLTextAreaElement>(null),
   }
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const data = new FormData(e.currentTarget)
+    if (status === 'sending') return
+    const form = e.currentTarget
+    const data = new FormData(form)
+    // Campo escondido: pessoas não preenchem, robôs costumam preencher.
+    if (data.get('botcheck')) return
     const values = {
       nome: String(data.get('nome') ?? ''),
       email: String(data.get('email') ?? ''),
@@ -43,16 +69,35 @@ export default function ContactForm() {
 
     const firstInvalid = order.find((f) => next[f])
     if (firstInvalid) {
-      setSent(false)
+      setStatus('idle')
       refs[firstInvalid].current?.focus()
       return
     }
 
-    // Site estático, sem servidor: o envio abre o app de e-mail com a mensagem pronta.
-    const subject = `Contato pelo portfólio: ${values.nome.trim()}`
-    const body = `${values.mensagem.trim()}\n\n${values.nome.trim()}\n${values.email.trim()}`
-    window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setSent(true)
+    if (!canSendDirectly) {
+      const subject = `Contato pelo portfólio: ${values.nome.trim()}`
+      const body = `${values.mensagem.trim()}\n\n${values.nome.trim()}\n${values.email.trim()}`
+      window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+      setStatus('mailto')
+      return
+    }
+
+    setStatus('sending')
+    try {
+      await sendMessage(values)
+      form.reset()
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  const statusMessage: Record<Status, string> = {
+    idle: '',
+    sending: 'Enviando…',
+    sent: 'Mensagem enviada. A resposta vai para o e-mail que você informou.',
+    mailto: `Mensagem pronta no seu app de e-mail. Se ele não abriu, escreva direto para ${profile.email}.`,
+    error: `Não consegui enviar agora. Tente de novo em instantes ou escreva direto para ${profile.email}.`,
   }
 
   function clearError(field: Field) {
@@ -128,14 +173,21 @@ export default function ContactForm() {
           </p>
         )}
       </div>
+      <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <button type="submit" className={buttonPrimary}>
-          Enviar mensagem
+        <button
+          type="submit"
+          disabled={status === 'sending'}
+          className={`${buttonPrimary} disabled:cursor-wait disabled:opacity-70`}
+        >
+          {status === 'sending' ? 'Enviando…' : 'Enviar mensagem'}
         </button>
-        <p className="text-sm text-sub">Ao enviar, seu app de e-mail abre com a mensagem pronta.</p>
+        {!canSendDirectly && (
+          <p className="text-sm text-sub">Ao enviar, seu app de e-mail abre com a mensagem pronta.</p>
+        )}
       </div>
-      <p aria-live="polite" className="text-sm text-ok empty:hidden">
-        {sent ? `Mensagem pronta no seu app de e-mail. Se ele não abriu, escreva direto para ${profile.email}.` : ''}
+      <p aria-live="polite" className={`text-sm empty:hidden ${status === 'error' ? 'text-err' : 'text-ok'}`}>
+        {status === 'sending' ? '' : statusMessage[status]}
       </p>
     </form>
   )

@@ -18,8 +18,8 @@ export default function App() {
       <Header />
       <main id="conteudo">
         <Hero />
-        <Projects />
         <Work />
+        <Projects />
         <Journey />
         <Contact />
       </main>

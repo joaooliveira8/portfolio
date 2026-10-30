@@ -100,6 +100,17 @@ export function FlowArrowIcon(props: IconProps) {
   )
 }
 
+export function MergeIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" {...stroke} strokeWidth={1.6} {...props}>
+      <circle cx="4" cy="3.5" r="1.8" />
+      <circle cx="4" cy="12.5" r="1.8" />
+      <circle cx="12" cy="8" r="1.8" />
+      <path d="M4 5.3v5.4M4 5.6c0 1.9 2.2 2.4 6.2 2.4" />
+    </svg>
+  )
+}
+
 export function LoopIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" {...stroke} {...props}>

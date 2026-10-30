@@ -18,6 +18,12 @@
   --hl: #ffd24a;
   --err: #b42318;
   --ok: #1e7b34;
+  --merged: #6f42c1;
+  --code-bg: #16191d;
+  --code-fg: #d7dce3;
+  --code-key: #8ec5ff;
+  --code-str: #a5e3b2;
+  --code-punct: #7a8290;
   color-scheme: light;
 }
 
@@ -34,6 +40,8 @@
     --hl: rgb(255 122 69 / 0.42);
     --err: #ff8a80;
     --ok: #7bd88f;
+    --merged: #a371f7;
+    --code-bg: #0b0d10;
     color-scheme: dark;
   }
 }
@@ -50,6 +58,8 @@
   --hl: rgb(255 122 69 / 0.42);
   --err: #ff8a80;
   --ok: #7bd88f;
+  --merged: #a371f7;
+  --code-bg: #0b0d10;
   color-scheme: dark;
 }
 
@@ -64,6 +74,12 @@
   --color-acc-ink: var(--acc-ink);
   --color-err: var(--err);
   --color-ok: var(--ok);
+  --color-merged: var(--merged);
+  --color-code-bg: var(--code-bg);
+  --color-code-fg: var(--code-fg);
+  --color-code-key: var(--code-key);
+  --color-code-str: var(--code-str);
+  --color-code-punct: var(--code-punct);
 
   --font-display: 'Bricolage Grotesque Variable', 'Segoe UI', system-ui, sans-serif;
   --font-sans: 'Figtree Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;

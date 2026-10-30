@@ -5,8 +5,8 @@ import ThemeToggle from './ThemeToggle'
 import { container } from './ui'
 
 const links = [
-  { href: '#projetos', label: 'Projetos' },
   { href: '#trabalho', label: 'No trabalho' },
+  { href: '#projetos', label: 'Projetos' },
   { href: '#trajetoria', label: 'Trajetória' },
   { href: '#contato', label: 'Contato' },
 ]

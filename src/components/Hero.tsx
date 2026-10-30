@@ -1,22 +1,20 @@
 import { education, profile, stack } from '../data/profile'
-import { DownloadIcon, GitHubIcon, LinkedInIcon } from './Icons'
-import ThemeToggle from './ThemeToggle'
+import { workStats } from '../data/work'
+import { ArrowIcon, DownloadIcon, GitHubIcon, LinkedInIcon } from './Icons'
 import { buttonGhost, buttonPrimary, container, eyebrow, tile, tileLabel } from './ui'
 
-const swatches = [
-  { token: 'bg', color: 'var(--bg)' },
-  { token: 'tile', color: 'var(--tile)' },
-  { token: 'ink', color: 'var(--ink)' },
-  { token: 'sub', color: 'var(--sub)' },
-  { token: 'acc', color: 'var(--acc)' },
-]
+// Os dois primeiros números da seção No trabalho: total de PRs e quantas foram na API.
+const [totalPrs, apiPrs] = workStats.items
 
 export default function Hero() {
   return (
     <section id="inicio" aria-labelledby="titulo-inicio" className={`${container} pt-2 pb-20 sm:pt-4`}>
       <div className="grid gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-4">
         <article className={`${tile} flex flex-col justify-end gap-6 p-6 sm:p-10 md:col-span-2 lg:col-span-3 lg:row-span-2 lg:min-h-[520px]`}>
-          <p className={`${eyebrow} text-acc`}>{profile.role}</p>
+          <div className="grid gap-1.5">
+            <p className="font-mono text-sm text-ok">$ whoami</p>
+            <p className={`${eyebrow} text-acc`}>{profile.role}</p>
+          </div>
           <h1
             id="titulo-inicio"
             className="font-display text-[44px] leading-[0.98] font-extrabold tracking-[-0.04em] sm:text-7xl lg:text-[84px]"
@@ -29,8 +27,8 @@ export default function Hero() {
             vem meu cuidado com erro, teste e com quem está do outro lado da tela.
           </p>
           <div className="flex flex-wrap items-center gap-2">
-            <a href="#projetos" className={buttonPrimary}>
-              Ver projetos
+            <a href="#trabalho" className={buttonPrimary}>
+              Ver entregas
             </a>
             <a href={profile.resume} download className={buttonGhost}>
               <DownloadIcon />
@@ -62,38 +60,50 @@ export default function Hero() {
           <p className="text-[15px]">{profile.now}</p>
         </article>
 
-        <article className={tile}>
-          <h2 className={tileLabel}>Tema</h2>
-          <p className="mb-4 text-[15px] text-sub">
-            Este site tem tema claro e escuro. As cores vêm de tokens, então nada some na troca.
-          </p>
-          <ThemeToggle variant="pill" />
-          <div className="mt-5 grid grid-cols-5 gap-1.5" aria-hidden="true">
-            {swatches.map((s) => (
-              <div key={s.token} className="grid min-w-0 gap-1">
-                <span className="h-7 rounded-lg border border-line" style={{ background: s.color }} />
-                <span className="truncate font-mono text-[10px] text-sub">{s.token}</span>
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <article className={`${tile} md:col-span-2`}>
-          <h2 className={tileLabel}>Stack</h2>
-          <dl className="grid gap-4 sm:grid-cols-2">
-            {stack.map((g) => (
-              <div key={g.group} className="min-w-0">
-                <dt className="mb-2 text-sm font-semibold">{g.group}</dt>
-                <dd className="flex flex-wrap gap-1.5">
-                  {g.items.map((item) => (
-                    <span key={item} className="rounded-full border border-line bg-tile-2 px-2.5 py-1 text-[13px]">
-                      {item}
-                    </span>
-                  ))}
-                </dd>
+        <a
+          href="#trabalho"
+          className={`${tile} group flex flex-col transition-colors hover:border-acc`}
+        >
+          <h2 className={tileLabel}>No trabalho</h2>
+          <dl className="grid grid-cols-2 gap-3">
+            {[totalPrs, apiPrs].map((s) => (
+              <div key={s.label} className="flex flex-col">
+                <dt className="order-2 text-sm leading-snug text-sub">{s.label}</dt>
+                <dd className="font-display text-5xl font-extrabold tracking-tight tabular-nums">{s.value}</dd>
               </div>
             ))}
           </dl>
+          <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-acc">
+            Ver as entregas
+            <ArrowIcon className="transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </a>
+
+        <article className={`${tile} md:col-span-2`}>
+          <h2 className={tileLabel}>Stack · package.json</h2>
+          <pre className="overflow-x-auto rounded-xl bg-code-bg p-4 font-mono text-[12.5px] leading-[1.8] whitespace-pre-wrap text-code-fg sm:p-5 sm:text-[13px]">
+            {/* Cada chave é um bloco com recuo deslocado: ao quebrar, a lista continua alinhada. */}
+            <code>
+              <span className="block text-code-punct">{'{'}</span>
+              <span className="block" style={{ paddingLeft: '4ch', textIndent: '-2ch' }}>
+                <span className="text-code-key">"nome"</span>: <span className="text-code-str">"joao-pedro-oliveira"</span>,
+              </span>
+              {stack.map((g, i) => (
+                <span key={g.key} className="block" style={{ paddingLeft: '4ch', textIndent: '-2ch' }}>
+                  <span className="text-code-key">"{g.key}"</span>: <span className="text-code-punct">[</span>
+                  {g.items.map((item, j) => (
+                    <span key={item}>
+                      <span className="text-code-str">"{item}"</span>
+                      {j < g.items.length - 1 && <span className="text-code-punct">, </span>}
+                    </span>
+                  ))}
+                  <span className="text-code-punct">]</span>
+                  {i < stack.length - 1 && ','}
+                </span>
+              ))}
+              <span className="block text-code-punct">{'}'}</span>
+            </code>
+          </pre>
         </article>
 
         <article className={tile}>

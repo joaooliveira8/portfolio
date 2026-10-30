@@ -18,13 +18,25 @@ export default function Journey() {
         </p>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-12">
-          <ol className="min-w-0 lg:col-span-7">
-            {jobs.map((job) => (
+          {/* Linha do tempo no estilo git log: um ponto por emprego, HEAD no atual. */}
+          <ol className="relative min-w-0 self-start border-l-2 border-line pl-6 lg:col-span-7">
+            {jobs.map((job, i) => (
               <li
                 key={job.period}
-                className="grid gap-1 border-t border-line py-6 first:border-t-0 first:pt-0 sm:grid-cols-[150px_1fr] sm:gap-6"
+                className="relative grid gap-1 pb-10 last:pb-0 sm:grid-cols-[150px_1fr] sm:gap-6"
               >
-                <p className="pt-1 font-mono text-[13px] text-sub tabular-nums">{job.period}</p>
+                <span
+                  aria-hidden="true"
+                  className={`absolute top-1.5 -left-[33px] size-4 rounded-full border-[3px] ${
+                    i === 0 ? 'border-acc bg-acc' : 'border-line bg-bg'
+                  }`}
+                />
+                <p className="flex flex-wrap items-center gap-2 self-start pt-1 font-mono text-[13px] text-sub tabular-nums">
+                  {job.period}
+                  {i === 0 && (
+                    <span className="rounded border border-acc px-1.5 py-px text-[11px] text-acc">HEAD</span>
+                  )}
+                </p>
                 <div className="min-w-0">
                   <h3 className="font-display text-2xl leading-tight font-bold tracking-[-0.015em]">{job.role}</h3>
                   <p className="font-semibold text-acc">{job.company}</p>

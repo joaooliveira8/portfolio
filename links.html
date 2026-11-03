@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>João Pedro Oliveira · Links</title>
+    <meta
+      name="description"
+      content="Portfólio, LinkedIn, GitHub, WhatsApp, e-mail e currículo de João Pedro Oliveira, desenvolvedor front-end."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="João Pedro Oliveira · Links" />
+    <meta
+      property="og:description"
+      content="Portfólio, LinkedIn, GitHub, WhatsApp, e-mail e currículo em um só lugar."
+    />
+    <meta name="theme-color" content="#E9ECF0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111316" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <script>
+      // Aplica o tema salvo antes da primeira pintura, para não piscar.
+      try {
+        var t = localStorage.getItem('tema')
+        if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/links.tsx"></script>
+  </body>
+</html>

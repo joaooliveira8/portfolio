@@ -51,6 +51,14 @@ export function ArrowIcon(props: IconProps) {
   )
 }
 
+export function TerminalIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" {...stroke} {...props}>
+      <path d="M5 7l5 5-5 5M13 17h6" />
+    </svg>
+  )
+}
+
 export function DownloadIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" {...stroke} {...props}>

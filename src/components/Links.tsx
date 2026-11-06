@@ -40,7 +40,7 @@ export default function Links() {
           <h1 className="mt-5 font-display text-3xl font-extrabold tracking-[-0.03em]">{profile.name}</h1>
           <p className="mt-1 font-mono text-xs font-medium tracking-[0.12em] text-acc uppercase">{profile.role}</p>
           <p className="mt-3 max-w-[34ch] text-center text-sub">
-            React e TypeScript no dia a dia, .NET quando o problema pede.
+            Veja minhas redes e canais de contato. Clique em qualquer link para acessar.
           </p>
         </header>
 

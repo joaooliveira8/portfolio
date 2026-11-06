@@ -1,41 +1,42 @@
-# Portfólio · João Pedro Oliveira
+# João Pedro Oliveira · Portfólio
 
-Site pessoal feito com React, TypeScript, Vite e Tailwind CSS. Tem tema claro e escuro e funciona do celular ao computador.
+Portfólio pessoal de desenvolvedor front-end, feito com React, TypeScript, Vite e Tailwind CSS. Reúne projetos, entregas profissionais, trajetória e um canal de contato direto.
 
-## Rodar na máquina
+## Destaques
+
+- **Tema claro e escuro.** Segue a preferência do sistema, guarda a escolha do visitante e é aplicado antes da primeira renderização, sem piscar a tela.
+- **Formulário de contato com envio direto.** Usa a API do Web3Forms, valida os campos no cliente e leva o foco ao primeiro campo inválido.
+- **Acessibilidade.** Os erros ficam ligados aos campos por `aria-invalid` e `aria-describedby`, e o status do envio é anunciado com `aria-live`.
+- **Layout responsivo**, do celular ao computador.
+- **Duas páginas no mesmo build** (Vite multi-page): o portfólio e uma página de links.
+- **Conteúdo separado da interface.** Os textos e dados ficam em `src/data`, e os componentes apenas renderizam.
+
+## Stack
+
+| Camada | Tecnologia |
+|---|---|
+| Interface | React 19 + TypeScript |
+| Build | Vite 7 |
+| Estilo | Tailwind CSS 4 |
+| Formulário | Web3Forms |
+| Hospedagem | Vercel |
+
+## Estrutura
+
+```
+src/
+├── components/   componentes de interface
+├── data/         conteúdo: perfil, projetos e entregas
+├── lib/          lógica do tema claro/escuro
+├── main.tsx      entrada do portfólio
+└── links.tsx     entrada da página de links
+```
+
+## Como rodar
 
 ```bash
 npm install
-npm run dev        # abre em http://localhost:5173
+npm run dev       # http://localhost:5173
+npm run build     # checagem de tipos + build de produção
+npm run preview   # serve o build em http://localhost:4173
 ```
-
-Para testar no celular na mesma rede Wi-Fi: `npm run dev -- --host` e abra o endereço "Network" que aparecer.
-
-```bash
-npm run build      # checa os tipos e gera a pasta dist/
-npm run preview    # serve o dist/ em http://localhost:4173
-```
-
-## Onde mudar o conteúdo
-
-| O quê | Arquivo |
-|---|---|
-| Nome, contatos, experiências, formação, certificados, stack | `src/data/profile.ts` |
-| Projetos (Problema → O que fiz → Resultado) | `src/data/projects.ts` |
-| Currículo em PDF | `public/curriculo-joao-pedro-oliveira.pdf` |
-| Cores dos temas | `src/index.css`, no topo |
-| Página de links da bio (`/links`) | `src/components/Links.tsx` |
-
-Para adicionar um projeto, copie um objeto em `projects.ts` e troque os textos. O campo `visual` é opcional.
-
-## Publicar
-
-O site é publicado pela Vercel, ligada a este repositório. Cada push na `main` publica de novo.
-
-Para ligar de novo do zero:
-
-1. Entre em [vercel.com](https://vercel.com) com a conta do GitHub e clique em **Add New → Project**.
-2. Escolha o repositório. A Vercel detecta o Vite sozinha. Clique em **Deploy**.
-3. O site fica em `https://<nome>.vercel.app`.
-
-O `base: './'` no `vite.config.ts` deixa o build funcionar em qualquer caminho, inclusive num subdiretório.
